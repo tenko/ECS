@@ -92,6 +92,31 @@ ifdef windir
 		toolchain := msvc
 	endif
 
+else ifdef MSYSTEM
+	CP := cp -f
+	RM := rm -f
+	TC := touch
+
+	PRG :=
+	DIR = $1
+	DIRP = $1
+	ESC = \$(strip $1)
+	NUL := /dev/null
+
+	ENVIRONMENT := windows.cpp
+
+	ifdef CommonProgramFiles(x86)
+		HOSTENVIRONMENTS := win32 win64
+	else
+		HOSTENVIRONMENTS := dos win32
+	endif
+
+	ifeq "$(MSYSTEM)" "CLANG64"
+		toolchain := clang
+	else
+		toolchain := gcc
+	endif
+	
 else
 
 	CP := cp -f
