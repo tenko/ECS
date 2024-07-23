@@ -146,42 +146,62 @@ entry:	.equals	_entry + sect_align - file_align
 	.byte	"Windows 64-bit", 0
 
 ; system call wrappers
-#repeat 5
+#repeat 15
 
 	.code _system_call_wrapper##
 
-		#if ## == 4
-			.alias	_system_call_wrapper5
-			.alias	_system_call_wrapper6
-			.alias	_system_call_wrapper7
-			.alias	_system_call_wrapper8
-			.alias	_system_call_wrapper9
-			.alias	_system_call_wrapper10
-			.alias	_system_call_wrapper11
-			.alias	_system_call_wrapper12
+		pop rbx
+		mov rdi, rsp
+		and rsp, ~1111b
+		#if ## > 4 & ## & 1
+			sub rsp, 8
 		#endif
-
-		pop	rbx
-		#if ## > 0
-			mov	rcx, [rsp]
+		#if ## > 13
+			push qword [rdi + 104]
 		#endif
-		#if ## > 1
-			mov	rdx, [rsp + 8]
+		#if ## > 12
+			push qword [rdi + 96]
 		#endif
-		#if ## > 2
-			mov	r8, [rsp + 16]
+		#if ## > 11
+			push qword [rdi + 88]
+		#endif
+		#if ## > 10
+			push qword [rdi + 80]
+		#endif
+		#if ## > 9
+			push qword [rdi + 72]
+		#endif
+		#if ## > 8
+			push qword [rdi + 64]
+		#endif
+		#if ## > 7
+			push qword [rdi + 56]
+		#endif
+		#if ## > 6
+			push qword [rdi + 48]
+		#endif
+		#if ## > 5
+			push qword [rdi + 40]
+		#endif
+		#if ## > 4
+			push qword [rdi + 32]
 		#endif
 		#if ## > 3
-			mov	r9, [rsp + 24]
+			mov	r9, [rdi + 24]
 		#endif
-		#if ## < 4
-			sub	rsp, 32 - ## * 8
+		#if ## > 2
+			mov	r8, [rdi + 16]
 		#endif
-		call	rax
-		#if ## < 4
-			add	rsp, 32 - ## * 8
+		#if ## > 1
+			mov	rdx, [rdi + 8]
 		#endif
-		jmp	rbx
+		#if ## > 0
+			mov	rcx, [rdi]
+		#endif
+		sub rsp, 32
+		call rax
+		mov rsp, rdi
+		jmp rbx
 
 #endrep
 
