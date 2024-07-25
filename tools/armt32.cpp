@@ -269,7 +269,7 @@ bool T32::Operand::IsCompatibleWith (const Type type) const
 	case I06: return model == Immediate && immediate >= 0 && immediate <= 63;
 	case I07T4: return model == Immediate && immediate >= 0 && immediate <= 508 && immediate % 4 == 0;
 	case I08: return model == Immediate && immediate >= 0 && immediate <= 255;
-	case I08T4: return model == Immediate && immediate >= 0 && immediate <= 1020 && immediate % 4 == 0;
+	case I08T4: return model == Immediate && immediate >= -4 && immediate <= 1020 && immediate % 4 == 0;
 	case I012: return model == Immediate && immediate >= 0 && immediate <= 4095;
 	case I012N: return model == Immediate && immediate >= -4095 && immediate <= -1;
 	case I0162: case I0164: return model == Immediate && immediate >= 0 && immediate <= 65535;
