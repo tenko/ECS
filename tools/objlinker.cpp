@@ -154,7 +154,7 @@ Offset MappedByteArrangement::Allocate (const Binary& binary, const Size size)
 }
 
 Context::Context (const Linker& l, Arrangement& code, Arrangement& data, Arrangement& const_) :
-	linker {l}, arrangements {&code, &code, &code, &data, &const_, &const_, &const_}
+	linker {l}, arrangements {&code, &code, &code, &data, &const_, &data, &data}
 {
 }
 
