@@ -451,7 +451,7 @@ void Context::Generate (const Code::Instruction& instruction)
 		break;
 
 	case Code::Instruction::TRAP:
-		Emit (HLT {Immediate (operand1.size & 63)});
+		Emit (UDF {Immediate (operand1.size & 255)});
 		break;
 
 	default:
