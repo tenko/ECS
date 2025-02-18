@@ -166,5 +166,13 @@ PROCEDURE ^ Times* ["sys_times"] (buf: SYSTEM.ADDRESS): LONGINT;
 PROCEDURE ^ Unlink* ["sys_unlink"] (pathname: SYSTEM.ADDRESS): INTEGER;
 PROCEDURE ^ WaitID* ["sys_waitid"] (which, upid: INTEGER; infop: SYSTEM.ADDRESS; options: INTEGER; ru: SYSTEM.ADDRESS): INTEGER;
 PROCEDURE ^ Write* ["sys_write"] (fd: INTEGER; buf: SYSTEM.ADDRESS; count: LENGTH): LENGTH;
+(* Added 2025-02-16 *)
+PROCEDURE ^ MkDir* ["sys_mkdir"] (pathname: SYSTEM.ADDRESS; mode: INTEGER): INTEGER;
+PROCEDURE ^ RmDir* ["sys_rmdir"] (pathname: SYSTEM.ADDRESS): INTEGER;
+PROCEDURE ^ GetCWD* ["sys_getcwd"] (buffer: SYSTEM.ADDRESS; size: LENGTH): SYSTEM.ADDRESS;
+PROCEDURE ^ ChDir* ["sys_chdir"] (pathname: SYSTEM.ADDRESS): INTEGER;
+PROCEDURE ^ Stat* ["sys_stat"] (pathname: SYSTEM.ADDRESS; statbuf: SYSTEM.ADDRESS): INTEGER;
+PROCEDURE ^ FTruncate* ["sys_ftruncate"] (fd: INTEGER; length: LENGTH): INTEGER;
+PROCEDURE ^ GetDents* ["sys_getdents64"] (fd: INTEGER; buf: SYSTEM.ADDRESS; count: LENGTH): INTEGER;
 
 END Linux.

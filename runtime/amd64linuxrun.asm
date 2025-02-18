@@ -208,6 +208,14 @@ base:	.equals	0x08048000
 	system_call	sys_unlink, 87, 1
 	system_call	sys_waitid, 247, 5
 	system_call	sys_write, 1, 3
+; Added 2025-02-16
+	system_call	sys_mkdir, 83, 2
+	system_call	sys_rmdir, 84, 1
+	system_call	sys_getcwd, 79, 2
+	system_call	sys_chdir, 80, 1
+	system_call	sys_stat, 4, 2
+	system_call sys_ftruncate, 77, 2
+	system_call	sys_getdents64, 217, 3
 
 #undef system_call
 
