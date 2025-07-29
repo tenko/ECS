@@ -337,6 +337,7 @@ void Context::Check (Declaration& declaration)
 		if (declaration.parameter.type != previousType) Check (*declaration.parameter.type), previousType = declaration.parameter.type;
 		if (IsAbstract (*declaration.parameter.type) && !IsVariableParameter (declaration)) EmitError (declaration.position, Format ("value parameter of abstract %0", *declaration.parameter.type));
 		if (IsAnonymous (*declaration.parameter.type)) InsertUnique (declaration.parameter.type, module.anonymousTypes);
+        if (IsStructured (*declaration.parameter.type) && !IsVariableParameter (declaration) && !IsReadOnlyParameter (declaration)) EmitWarning (declaration.position, Format ("value parameter of structured %0", *declaration.parameter.type));
 		return Declare (declaration, *currentScope);
 
 	default:
