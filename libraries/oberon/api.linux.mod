@@ -144,6 +144,14 @@ TYPE Timespec* = RECORD-
 	tv_nsec*: LENGTH;
 END;
 
+TYPE Termios* = RECORD-
+    c_iflag*: LENGTH;
+    c_oflag*: LENGTH;
+    c_cflag*: LENGTH;
+    c_lflag*: LENGTH;
+    c_cc*: ARRAY 64 OF SYSTEM.BYTE;
+END;
+
 PROCEDURE ^ Brk* ["sys_brk"] (addr: SYSTEM.ADDRESS): SYSTEM.ADDRESS;
 PROCEDURE ^ ClockGetRes* ["sys_clock_getres"] (clk_id: INTEGER; res: SYSTEM.ADDRESS): INTEGER;
 PROCEDURE ^ ClockGetTime* ["sys_clock_gettime"] (clk_id: INTEGER; tp: SYSTEM.ADDRESS): INTEGER;
@@ -174,5 +182,7 @@ PROCEDURE ^ ChDir* ["sys_chdir"] (pathname: SYSTEM.ADDRESS): INTEGER;
 PROCEDURE ^ Stat* ["sys_stat"] (pathname: SYSTEM.ADDRESS; statbuf: SYSTEM.ADDRESS): INTEGER;
 PROCEDURE ^ FTruncate* ["sys_ftruncate"] (fd: INTEGER; length: LENGTH): INTEGER;
 PROCEDURE ^ GetDents* ["sys_getdents64"] (fd: INTEGER; buf: SYSTEM.ADDRESS; count: LENGTH): INTEGER;
+(* Added 2025-10-24 *)
+PROCEDURE ^ IOCtl* ["sys_ioctl"] (fd, cmd: INTEGER; arg: SYSTEM.ADDRESS): INTEGER;
 
 END Linux.

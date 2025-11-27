@@ -216,6 +216,8 @@ base:	.equals	0x08048000
 	system_call	sys_stat, 4, 2
 	system_call sys_ftruncate, 77, 2
 	system_call	sys_getdents64, 217, 3
+; Added 2025-10-24
+	system_call	sys_ioctl, 16, 3
 
 #undef system_call
 
