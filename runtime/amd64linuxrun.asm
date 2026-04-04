@@ -218,7 +218,14 @@ base:	.equals	0x08048000
 	system_call	sys_getdents64, 217, 3
 ; Added 2025-10-24
 	system_call	sys_ioctl, 16, 3
-
+; Added 2026-04-03
+  system_call	sys_pipe, 22, 1
+  system_call	sys_dup2, 33, 2
+	system_call	sys_fork, 57, 0
+	system_call sys_wait4, 61, 4
+	system_call sys_kill, 62, 2
+	system_call sys_execve, 59, 3
+	
 #undef system_call
 
 ; interpreter for dynamic linking

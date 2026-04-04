@@ -184,5 +184,12 @@ PROCEDURE ^ FTruncate* ["sys_ftruncate"] (fd: INTEGER; length: LENGTH): INTEGER;
 PROCEDURE ^ GetDents* ["sys_getdents64"] (fd: INTEGER; buf: SYSTEM.ADDRESS; count: LENGTH): INTEGER;
 (* Added 2025-10-24 *)
 PROCEDURE ^ IOCtl* ["sys_ioctl"] (fd, cmd: INTEGER; arg: SYSTEM.ADDRESS): INTEGER;
+(* Added 2026-04-03 *)
+PROCEDURE ^ Pipe* ["sys_pipe"] (arg: SYSTEM.ADDRESS): INTEGER;
+PROCEDURE ^ Dup2* ["sys_dup2"] (oldfd: CARDINAL; newfd: CARDINAL): INTEGER;
+PROCEDURE ^ Fork* ["sys_fork"] (): INTEGER;
+PROCEDURE ^ Wait4* ["sys_wait4"] (pid : INTEGER; stat_addr: SYSTEM.ADDRESS; options: INTEGER; ru: SYSTEM.ADDRESS): INTEGER;
+PROCEDURE ^ Kill* ["sys_kill"] (pid : INTEGER; sig : INTEGER): INTEGER;
+PROCEDURE ^ ExecVE* ["sys_execve"] (filename: SYSTEM.ADDRESS; argv: SYSTEM.ADDRESS; envp: SYSTEM.ADDRESS): INTEGER;
 
 END Linux.
