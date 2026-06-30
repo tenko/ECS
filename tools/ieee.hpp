@@ -53,9 +53,9 @@ Float ECS::IEEE::Precision<Exponent, Significant, Unsigned, Float>::Decode (Unsi
 {
 	auto mantissa = value & (Unsigned {1} << Significant) - 1; value >>= Significant;
 	signed exponent = value & (signed {1} << Exponent) - 1; value >>= Exponent;
-	if (exponent == Bias * 2 + 1) if (mantissa) return value ? -NAN : NAN; else return value ? -INFINITY : INFINITY;
+	if (exponent == Bias * 2 + 1) if (mantissa) return value ? -NAN : +NAN; else return value ? -INFINITY : +INFINITY;
 	if (exponent != 0) mantissa |= Unsigned {1} << Significant, exponent += Significant - Bias;
-	else if (mantissa) exponent = Significant - Bias + 1; else return 0;
+	else if (mantissa) exponent = Significant - Bias + 1; else return value ? -0 : +0;
 	Float result = exponent < 0 ? Float {1} / (1 << -exponent) : 1 << exponent;
 	for (Bits i = 0; i != Significant; ++i) result /= 2, result += mantissa & 1, mantissa >>= 1;
 	if (value) result = -result; return result;
@@ -66,8 +66,8 @@ Unsigned ECS::IEEE::Precision<Exponent, Significant, Unsigned, Float>::Encode (F
 {
 	if (std::isinf (value)) return ~(Unsigned (!std::signbit (value)) << Exponent) << Significant;
 	if (std::isnan (value)) return ~(Unsigned (!std::signbit (value)) << Exponent + 1) << Significant - 1;
-	if (value == 0) return 0; Unsigned result = 0; signed exponent = 0;
-	if (value < 0) value = -value, result = 1 << Exponent;
+	if (value == 0) return Unsigned (std::signbit (value)) << Exponent + Significant;
+	Unsigned result = 0; signed exponent = 0; if (value < 0) value = -value, result = 1 << Exponent;
 	while (value < 1) value *= 2, --exponent; while (value >= 2) value /= 2, ++exponent;
 	result |= exponent + Bias; value -= 1;
 	for (Bits i = 0; i != Significant; ++i) if (result <<= 1, (value *= 2) >= 1) value -= 1, result |= 1;
