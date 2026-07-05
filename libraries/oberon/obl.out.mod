@@ -49,7 +49,7 @@ END Boolean;
 
 (** Prints an unsigned integer value to the standard output stream. *)
 PROCEDURE Unsigned* (value: UNSIGNED64);
-VAR i: LENGTH; buffer: ARRAY 19 OF CHAR;
+VAR i: LENGTH; buffer: ARRAY 20 OF CHAR;
 BEGIN
 	i := 0; REPEAT buffer[i] := CHR (value MOD 10 + ORD ('0')); value := value DIV 10; INC (i) UNTIL value = 0;
 	WHILE i # 0 DO DEC (i); Char (buffer[i]) END;
